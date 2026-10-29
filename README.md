@@ -28,3 +28,8 @@ sudo docker run -d --name nginx-red --network red-proyecto -p 8082:80 nginx
 sudo docker volume create volumen-web
 sudo docker run -d --name nginx-volumen -p 8083:80 -v volumen-web:/usr/share/nginx/html nginx
 ```
+
+### 8. Pruebas de conectividad
+```bash
+sudo docker run -it --rm --network red-proyecto alpine ping -c 4 nginx-red
+```
