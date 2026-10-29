@@ -1,29 +1,30 @@
-# Proyecto Final - Introducción al Software Libre
+### 3. Control de versiones
+Repositorio Git inicializado en /proyecto y subido a GitHub.
 
-Universidad de El Salvador - FMOcc
-Ingeniería en Desarrollo de Software - Ciclo II 2026
-Grupo 8
+### 4. Docker
+```bash
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo systemctl enable docker && sudo systemctl start docker
+sudo usermod -aG docker adminsys
+sudo usermod -aG docker tecnico
+sudo docker run hello-world
+```
 
-## Descripción
-Servidor Linux automatizado con contenedores Docker, administración
-de usuarios y permisos, monitoreo con cron y control de versiones con Git.
+### 5. Servidor web con Nginx (puerto 8080)
+```bash
+sudo docker run -d --name nginx-basico -p 8080:80 -v /proyecto/web:/usr/share/nginx/html:ro nginx
+```
 
-## Integrantes
-- rm20102
-- vm19071
-- mm23003
+### 6. Imagen personalizada (puerto 8081)
+```bash
+sudo docker build -t servidor-grupo8 .
+sudo docker run -d --name servidor-grupo8 -p 8081:80 servidor-grupo8
+```
 
-## Estructura
-- datos/: archivos de configuración
-- web/: archivos del sitio web
-- scripts/: scripts de automatización
-- capturas/: evidencias del proyecto
-
-## Pasos realizados
-### 1. Preparación del entorno
-(hostname, usuarios, grupos, directorios y permisos)
-
-### 2. Automatización
-(script de monitoreo y cron)
-
-(Se irán agregando las demás fases)
+### 7. Redes y volúmenes
+```bash
+sudo docker network create red-proyecto
+sudo docker run -d --name nginx-red --network red-proyecto -p 8082:80 nginx
+sudo docker volume create volumen-web
+sudo docker run -d --name nginx-volumen -p 8083:80 -v volumen-web:/usr/share/nginx/html nginx
+```
